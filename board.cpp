@@ -235,9 +235,10 @@ std::vector< Move > Board::getViableMoves( int x, int y ) {
                 // move until there is an obstacle on a path
                 while ( i >= 0 && j >= 0 && i <= 7 && j <= 7 ) {
                     //if not capturing add those moves
-                    if ( board[i][j] == EMPTY && !captureFlag )
-                        moves.push_back( Move( x, y, i, j ) );
-                    else if ( color ) {
+                    if ( board[i][j] == EMPTY ) {
+                        if ( !captureFlag )
+                            moves.push_back( Move( x, y, i, j ) );
+                    } else if ( color ) {
                         // break if an ally on path
                         if ( board[i][j] == BLACK_KING || board[i][j] == BLACK_PAWN )
                             break;
@@ -255,7 +256,8 @@ std::vector< Move > Board::getViableMoves( int x, int y ) {
                                     break;
                             } while ( true );
                             break;
-                        }
+                        } else
+                            break;
                     } else {
                         // break if an ally on path
                         if ( board[i][j] == RED_KING || board[i][j] == RED_PAWN )
@@ -274,7 +276,8 @@ std::vector< Move > Board::getViableMoves( int x, int y ) {
                                     break;
                             } while ( true );
                             break;
-                        }
+                        } else
+                            break; 
                     }
                     i += a;
                     j += b;
