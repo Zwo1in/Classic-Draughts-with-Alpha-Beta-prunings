@@ -25,6 +25,7 @@ void Draughts::play() {
     if ( gameStart() ) {
         while ( win.isOpen() ) {
             draw();
+            win.display();
             if ( player ) {
                 // cpuMove( true );
                 playerMove();
@@ -124,6 +125,7 @@ void Draughts::playerMove() {
         if ( moveResult == 2 ) {
             first = second;
             draw();
+            win.display();
         }
     } while ( moveResult != 1 );
 }
@@ -133,6 +135,7 @@ void Draughts::cpuMove( bool second ) {
     for ( auto& coords : move.coords ) {
         board.move( coords );
         draw();
+        win.display();
         usleep(100000);
     }
 }
@@ -189,5 +192,4 @@ void Draughts::draw() {
             }
         }
     }
-    win.display();
 }
